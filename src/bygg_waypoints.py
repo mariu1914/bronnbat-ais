@@ -1,19 +1,5 @@
 """
-Pakk ut localityWaypoints fra de cachede fartoysporene.
 
-Kjor:
-    python src/bygg_waypoints.py
-
-Ingen API-kall - alt ligger allerede pa disk.
-
-localityWaypoints gir tre ting vi ikke hadde:
-  1. Navn pa lokalitetene (besoksdataene hadde bare nummer)
-  2. Klassifisering: slaktemerd, settefisk, landbasert
-  3. Besok utenfor Nordmore, siden dette folger fartoyet og ikke lokaliteten
-
-Skriver:
-  data/processed/waypoints.csv         alle besok, alle regioner
-  data/processed/lokalitetsnavn.csv    oppslagstabell nummer -> navn
 """
 
 from __future__ import annotations

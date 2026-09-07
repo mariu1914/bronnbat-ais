@@ -1,12 +1,6 @@
 """
 Kjorbar demo pa syntetiske data.
 
-Kjor `python src/demo.py` fra rotmappa. Den lager en fiktiv flate pa 6 fartoy
-over 90 dager, kjorer hele pipelinen og skriver ut nokkeltall + en figur.
-
-Formalet er at du skal se hele lopet virke FOR du har fatt tilgang til ekte
-AIS-data. Nar de ekte dataene kommer, bytter du ut lag_syntetisk_flate()
-med innlasting fra data/raw/ - resten star.
 """
 
 from __future__ import annotations

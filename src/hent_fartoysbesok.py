@@ -1,14 +1,5 @@
 """
-Last ned fartoysbesok per lokalitet fra BarentsWatch Fishhealth API.
 
-Bruker /v1/geodata/fishhealth/locality/{localityNo}/vessel/{year}
-som gir besok for hele aret i ett kall per lokalitet.
-
-Kjor etter hent_lokaliteter.py:
-    python src/hent_fartoysbesok.py
-
-Skriver data/processed/fartoysbesok_raa.csv og printer hvilke kolonner
-API-et faktisk returnerer, slik at vi kan mappe dem riktig etterpa.
 """
 
 from __future__ import annotations

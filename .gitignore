@@ -1,13 +1,13 @@
-# Hemmeligheter - ALDRI commit disse
+# Hemmeligheter 
 .env
 *.key
 credentials.json
 
-# Rådata - for store for git, hentes med skript
+# Rådata 
 data/raw/*
 !data/raw/.gitkeep
 
-# Generert output - reproduseres ved å kjøre skriptene
+# Generert output 
 data/processed/*
 !data/processed/.gitkeep
 

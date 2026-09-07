@@ -11,8 +11,7 @@ kapasitetsutnyttelse på flåtenivå.
 
 ## Hovedfunn
 
-> Skriv disse i klartekst med tall når du har kjørt på ekte data. Tre punkter,
-> maks én setning hver. Dette er det eneste de fleste leser.
+
 
 1. …
 2. …
@@ -20,7 +19,7 @@ kapasitetsutnyttelse på flåtenivå.
 
 ## Figurer
 
-> Legg inn to–tre figurer her. De rendres direkte på GitHub.
+
 
 ![Fordeling av liggetid](output/figures/demo.png)
 
@@ -53,7 +52,6 @@ Parametrene ligger som konstanter øverst i `src/visits.py`.
 
 ## Begrensninger
 
-Dette er viktig, og hører hjemme høyt i dokumentet — ikke gjemt nederst.
 
 - **AIS-data kan være mangelfulle eller feil**, særlig i områder med dårlig
   dekning. BarentsWatch tar selv dette forbeholdet.
@@ -86,9 +84,7 @@ data/raw/         Rådata (ikke i git — hentes med skript)
 data/processed/   Aggregerte resultater
 ```
 
-## Om
 
-Laget av [navn], student ved bachelor i marin logistikk og økonomi,
 Høgskolen i Molde, Campus Kristiansund.
 
 Innspill og korrigeringer fra folk i bransjen mottas veldig gjerne — særlig på

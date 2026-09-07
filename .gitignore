@@ -1,0 +1,23 @@
+# Hemmeligheter - ALDRI commit disse
+.env
+*.key
+credentials.json
+
+# Rådata - for store for git, hentes med skript
+data/raw/*
+!data/raw/.gitkeep
+
+# Generert output - reproduseres ved å kjøre skriptene
+data/processed/*
+!data/processed/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store

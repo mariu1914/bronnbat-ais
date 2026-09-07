@@ -20,9 +20,11 @@ kapasitetsutnyttelse på flåtenivå.
 ## Figurer
 
 
+![Fordeling av liggetid](output/figures/liggetid_fordeling.png)
 
-![Fordeling av liggetid](output/figures/demo.png)
+![Liggetid per fartøy](output/figures/liggetid_per_fartoy.png)
 
+![Sesongprofil](output/figures/sesongprofil.png)
 ---
 
 ## Datakilder

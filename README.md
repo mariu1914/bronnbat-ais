@@ -85,7 +85,6 @@ data/processed/   Aggregerte resultater
 ```
 
 
-Høgskolen i Molde, Campus Kristiansund.
 
 Innspill og korrigeringer fra folk i bransjen mottas veldig gjerne — særlig på
 hvor metoden bommer i forhold til hvordan dette faktisk fungerer i praksis.

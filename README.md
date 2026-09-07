@@ -1,7 +1,7 @@
 # Brønnbåtlogistikk på Nordmøre
 
 > **Status:** under arbeid. Analysen kjører foreløpig på syntetiske testdata.
-> Bytt ut denne linjen når du har ekte AIS-data inne.
+> 
 
 Kartlegging av hvordan brønnbåtflåten opererer langs Nordmøre, basert utelukkende
 på åpne data. Målet er å beskrive liggetid ved lokalitet, seilingsmønster og
@@ -69,23 +69,71 @@ Parametrene ligger som konstanter øverst i `src/visits.py`.
 
 ## Kjøre prosjektet
 
+Krever en klient fra BarentsWatch. Registrer den på `barentswatch.no` under
+Min side → API-tilgang, kopier `.env.example` til `.env` og fyll inn
+`BARENTSWATCH_CLIENT_ID` og `BARENTSWATCH_CLIENT_SECRET`.
+
 ```bash
 pip install -r requirements.txt
-python src/demo.py          # kjører hele pipelinen på syntetiske data
-python -m pytest tests/ -v  # verifiserer besøksdeteksjonen
+python src/barentswatch.py       # sjekker at autentiseringen virker
+```
+
+Deretter i denne rekkefølgen. Alle nedlastinger caches til disk, så de kan
+trygt avbrytes og startes på nytt.
+
+```bash
+python src/hent_lokaliteter.py    # lokalitetsregister for Nordmøre  (~2 min)
+python src/hent_fartoysbesok.py   # fartøysbesøk per lokalitet       (~2 min)
+python src/bygg_besok.py          # strukturerer besøkene
+python src/hent_spor.py           # fartøysspor for hele flåten     (~50 min)
+python src/bygg_waypoints.py      # lokalitetsnavn og besøkstyper
+python src/rydd_waypoints.py      # slår sammen og deduplikerer
+python src/analyse_hale.py        # hovedanalysen
+python src/figurer.py             # figurene til denne fila
+```
+
+Uten API-tilgang kan pipelinen fortsatt testes:
+
+```bash
+python src/demo.py                # hele kjeden på syntetiske data
+python -m pytest tests/ -v        # verifiserer besøksdeteksjonen
 ```
 
 ## Struktur
 
+**Nedlasting**
 ```
-src/visits.py     Deteksjon av lokalitetsbesøk og seilaser fra AIS
-src/metrics.py    Nøkkeltall per fartøy, lokalitet og måned
-src/demo.py       Kjørbar demo på syntetiske data
-tests/            Tester av besøkslogikken mot kjente tilfeller
-data/raw/         Rådata (ikke i git — hentes med skript)
-data/processed/   Aggregerte resultater
+src/barentswatch.py       API-klient med OAuth-håndtering
+src/hent_lokaliteter.py   Lokalitetsregister, geografisk avgrenset
+src/hent_fartoysbesok.py  Fartøysbesøk per lokalitet og år
+src/hent_spor.py          Fartøysspor per brønnbåt og uke (kan ta opp mot 50 minutter og laste)
+src/utforsk_slakteri.py   Engangsskript for å undersøke datastrukturer
 ```
 
+**Bearbeiding**
+```
+src/bygg_besok.py         Pakker ut besøk, deduplikerer, filtrerer brønnbåter
+src/bygg_waypoints.py     Henter navn og besøkstyper fra sporene
+src/bygg_slakterier.py    Slakteriregister fra GeoJSON
+src/rydd_waypoints.py     Slår sammen besøk over ukegrenser, fjerner dubletter
+src/sjekk_spor.py         Diagnostikk av hva sporene faktisk inneholder
+```
+
+**Analyse**
+```
+src/visits.py             Egen besøksdeteksjon fra rå AIS-posisjoner
+src/metrics.py            Nøkkeltall per fartøy, lokalitet og måned
+src/analyse_hale.py       Fordeling av liggetid og regional tilknytning
+src/figurer.py            Figurene i denne fila
+src/demo.py               Kjørbar demo på syntetiske data
+tests/                    Tester av besøkslogikken mot kjente tilfeller
+```
+
+**Data**
+```
+data/raw/                 Cachede API-svar (ikke i git — hentes med skript)
+data/processed/           Aggregerte resultater (ikke i git — reproduseres)
+```
 
 
 Innspill og korrigeringer fra folk i bransjen mottas veldig gjerne — særlig på

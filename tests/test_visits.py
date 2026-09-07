@@ -1,8 +1,5 @@
 """
 Test av besoksdeteksjon mot syntetiske AIS-data.
-
-Poenget: du kan verifisere at logikken virker for du i det hele tatt har
-fatt tilgang til ekte data. Kjor med `python -m pytest tests/ -v` fra rotmappa.
 """
 
 import sys
@@ -97,6 +94,6 @@ def test_seilas_mellom_besok():
 
 def test_kort_opphold_filtreres_bort():
     ais, lokaliteter = lag_syntetisk_ais()
-    # Krev 12 timers opphold - da skal ingenting overleve filteret
+    #  12 timers opphold - da skal ingenting overleve filteret
     besok = finn_besok(ais, lokaliteter, min_varighet_min=720)
     assert len(besok) == 0

@@ -21,6 +21,10 @@ ROT = Path(__file__).resolve().parents[1]
 INN = ROT / "data" / "processed"
 FIG = ROT / "output" / "figures"
 
+# Analysen dekker ett kalenderar. Besok som krysser arsskiftet filtreres bort,
+# slik at forste og siste maned ikke blir kunstig lave i sesongprofilen.
+AAR = 2025
+
 BLA = "#2d5f8a"
 GRA = "#9aa5b1"
 AKSENT = "#c1553b"
@@ -44,12 +48,18 @@ def last() -> tuple[pd.DataFrame, pd.DataFrame]:
 
     besok = pd.read_csv(besok_fil, parse_dates=["start", "slutt"])
 
+    for_filter = len(besok)
+    besok = besok[besok["start"].dt.year == AAR].copy()
+    fjernet = for_filter - len(besok)
+    print(f"Avgrenset til {AAR}: {len(besok)} besøk beholdt, {fjernet} utenfor året")
+
     seilas_fil = INN / "seilaser_bronnbat.csv"
-    seilaser = (
-        pd.read_csv(seilas_fil, parse_dates=["avgang", "ankomst"])
-        if seilas_fil.exists()
-        else pd.DataFrame()
-    )
+    if seilas_fil.exists():
+        seilaser = pd.read_csv(seilas_fil, parse_dates=["avgang", "ankomst"])
+        seilaser = seilaser[seilaser["avgang"].dt.year == AAR].copy()
+    else:
+        seilaser = pd.DataFrame()
+
     return besok, seilaser
 
 
@@ -125,7 +135,7 @@ def fig_sesong(besok: pd.DataFrame):
     ax2.grid(False)
     ax2.set_ylim(0, per["fartoy"].max() * 1.3)
 
-    ax1.set_title("Brønnbåtaktivitet gjennom året", loc="left", fontweight="bold")
+    ax1.set_title(f"Brønnbåtaktivitet gjennom {AAR}", loc="left", fontweight="bold")
     fig.autofmt_xdate(rotation=0, ha="center")
     fig.tight_layout()
     fig.savefig(FIG / "sesongprofil.png")

@@ -1,22 +1,6 @@
 """
 Klient mot BarentsWatch-APIene.
 
-Autentisering er OpenID Connect med client credentials. Du henter et
-access token fra id.barentswatch.no og sender det som Bearer-token mot
-API-et. Token varer typisk en time, sa denne modulen cacher det og
-fornyer automatisk.
-
-Bruk:
-    from src.barentswatch import BarentsWatchKlient
-
-    bw = BarentsWatchKlient()
-    data = bw.get("/bwapi/v1/geodata/fishhealth/localities/2025/10")
-
-MERK: de eksakte endepunktstiene finner du i Swagger-dokumentasjonen:
-https://www.barentswatch.no/bwapi/openapi/index.html?urls.primaryName=Fishhealth%20API
-
-Ikke gjett pa stier - apne Swagger, finn endepunktet du vil ha, og lim inn.
-Du kan ogsa teste kall direkte i Swagger-grensesnittet for du skriver kode.
 """
 
 from __future__ import annotations
